@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Property</title>
+    <link rel="stylesheet" href="sell.css">
+    <!-- Add Google Maps API script -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</head>
+<body>
+    <div class="sell-container">
+        <h1>Sell Your Property</h1>
+        <form action="/sell" method="post" enctype="multipart/form-data">
+            <!-- Property Type Dropdown -->
+            <label for="propertyType">Property Type:</label>
+            <select id="propertyType" name="propertyType" required>
+                <option value="house">House</option>
+                <option value="studio">Studio Apartment</option>
+                <option value="land">Land</option>
+            </select>
+
+            <!-- Property Images Upload (up to 8 images) -->
+            <label for="propertyImages">Property Images (up to 8 images):</label>
+            <input type="file" id="propertyImages" name="propertyImages" accept="image/*" multiple required>
+
+            <!-- Property Description -->
+            <label for="propertyDescription">Property Description:</label>
+            <textarea id="propertyDescription" name="propertyDescription" rows="4" required></textarea>
+
+            <!-- Property Location on Google Maps -->
+            <label for="propertyLocation">Property Location on Google Maps:</label>
+            <div id="map" style="height: 300px;"></div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for handling Google Maps
+        function initMap() {
+            // You can customize this function to display the map based on user input
+            // For simplicity, let's just display a map centered on a specific location
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 37.7749, lng: -122.4194}, // San Francisco coordinates
+                zoom: 12
+            });
+        }
+    </script>
+</body>
+</html>
