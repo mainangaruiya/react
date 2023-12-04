@@ -23,6 +23,9 @@ def sell():
         property_description = request.form['propertyDescription']
        
     return render_template('sell.html')
+@app.route('/marketplace')
+def marketplace():
+    return 'Hello from Flask - Marketplace Page!'
 
 if __name__ == '__main__':
     app.run(debug=True)

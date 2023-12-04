@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Property</title>
+    <link rel="stylesheet" href="/styles/listing.css">
+    <!-- Add Google Maps API script -->
+    </head>
+<body>
+    <div class="sell-container">
+        <h1>Sell Your Property</h1>
+        <form action="/sell" method="post" enctype="multipart/form-data">
+            <!-- Property Type Dropdown -->
+            <label for="propertyType">Property Type:</label>
+            <select id="propertyType" name="propertyType" required>
+                <option value="house">House</option>
+                <option value="studio">Studio Apartment</option>
+                <option value="land">Land</option>
+            </select>
+
+            <!-- Property Images Upload (up to 8 images) -->
+            <label for="propertyImages">Property Images (up to 8 images):</label>
+            <input type="file" id="propertyImages" name="propertyImages" accept="image/*" multiple required>
+
+            <label for="propertytour">Property tour :</label>
+            <input type="file" id="propertytour" name="propertytour" accept="video/mp4" >
+
+            <!-- Property Description -->
+            <label for="propertyDescription">Property Description:</label>
+            <textarea id="propertyDescription" name="propertyDescription" rows="4" required></textarea>
+
+            <!-- Property Location on Google Maps -->
+            <label>Property Location</label>
+            <!-- Country -->
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required>
+
+            <!-- County/State -->
+            <label for="countyState">County/State:</label>
+            <input type="text" id="countyState" name="countyState" required>
+
+            <!-- City 1 -->
+            <label for="city1">City 1:</label>
+            <input type="text" id="city1" name="city1" required>
+
+            <!-- City 2 -->
+            <label for="city2">City 2:</label>
+            <input type="text" id="city2" name="city2" required>
+
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
