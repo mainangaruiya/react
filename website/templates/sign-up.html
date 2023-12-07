@@ -9,7 +9,7 @@
           crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           crossorigin="anonymous" />
-    <title>Login</title>
+    <title>Sign Up</title>
 </head>
 
 <body>
@@ -21,25 +21,30 @@
         <div class="navbar-nav">
 
             <a class="nav-item nav-link" id="home" href="/website/templates/home.html">Home</a>
-            <a class="nav-item nav-link" id="logout" href="/website/templates/home.html">Logout</a>
-            <a class="nav-item nav-link" id="sell" href="/website/templates/sell.html">sell</a>
-            <a class="nav-item nav-link" id="buy" href="/website/templates/buy.html">buy</a>
-
+            <a class="nav-item nav-link" id="login" href="/website/templates/login.html">Login</a>
         </div>
     </div>
 </nav>
 <form method="POST">
-    <h3 align="center">Login</h3>
+    <h3 align="center">Sign Up</h3>
     <div class="form-group">
         <label for="email">Email Address</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" />
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" />
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" />
+    </div>
+    <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password" />
+    </div>
+    <div class="form-group">
+        <label for="password2">Password (Confirm)</label>
+        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" />
     </div>
     <br />
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
