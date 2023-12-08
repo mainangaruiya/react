@@ -1,12 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db   ##means from __init__.py import db
+from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-
 auth = Blueprint('auth', __name__)
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,13 +25,11 @@ def login():
 
     return render_template("login.html", user=current_user)
 
-
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
-
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -64,3 +60,16 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+# Example of protecting the 'buy' and 'sell' routes with @login_required
+@auth.route('/buy')
+@login_required
+def buy():
+    # Your buy logic here
+    return render_template("buy.html", user=current_user)
+
+@auth.route('/sell')
+@login_required
+def sell():
+    # Your sell logic here
+    return render_template("sell.html", user=current_user)
