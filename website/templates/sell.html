@@ -25,7 +25,143 @@
         width: 100%;
         height: 100%;
         z-index: -1;
+    }<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+    <title>Property Upload</title>
+</head>
+<style>
+    body {
+        background: url('/website/static/3c.jpg') center center fixed;
+        background-size: cover;
+        position: relative;
     }
+
+    body::before {
+        content: "";
+        background: rgba(0.5, 0.5, 0.5, 0.5); /* Adjust the alpha value for the desired opacity */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+</style>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+
+            <a class="nav-item nav-link" id="home" href="/website/templates/home.html">Home</a>
+            <a class="nav-item nav-link" id="buy" href="/website/templates/buy.html">buy</a>
+            <a class="nav-item nav-link" id="signUp" href="/website/templates/sign-up.html">Sign Up</a>
+
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2 class="text-center">Property Upload</h2>
+    <form>
+        <div class="form-group">
+            <label for="kitchenImage" style="font-weight: bold; color: white;">Kitchen Image</label>
+            <input type="file" class="form-control" id="kitchenImage" accept="image/*" />
+        </div>
+        <div class="form-group">
+            <label for="sittingRoomImage" style="font-weight: bold; color: white;">Sitting Room Image</label>
+            <input type="file" class="form-control" id="sittingRoomImage" accept="image/*" />
+        </div>
+        <div class="form-group">
+            <label for="livingRoomImage" style="font-weight: bold; color: white;">Living Room Image</label>
+            <input type="file" class="form-control" id="livingRoomImage" accept="image/*" />
+        </div>
+        <div class="form-group">
+            <label for="masterBedroomImage" style="font-weight: bold; color: white;">Master Bedroom Image</label>
+            <input type="file" class="form-control" id="masterBedroomImage" accept="image/*" />
+        </div>
+        <div class="form-group" id="additionalImagesContainer">
+            <label for="additionalImage1" style="font-weight: bold; color: white;">Additional Image 1</label>
+            <input type="file" class="form-control" id="additionalImage1" accept="image/*" />
+        </div>
+        <!-- Additional images will be dynamically added here -->
+        <button type="button" class="btn btn-primary" onclick="addAdditionalImage()">Add Additional Image</button>
+        <div class="form-group">
+            <label for="propertyTitle" style="font-weight: bold; color: white;">Property Title</label>
+            <input type="text" class="form-control" id="propertyTitle" />
+        </div>
+        <div class="form-group">
+            <label for="numBedrooms" style="font-weight: bold; color: white;">Number of Bedrooms</label>
+            <input type="number" class="form-control" id="numBedrooms" />
+        </div>
+        <div class="form-group">
+            <label for="propertyLocation" style="font-weight: bold; color: white;">Property Location</label>
+            <input type="text" class="form-control" id="propertyLocation" />
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+    </form>
+</div>
+
+<script>
+    function submitForm() {
+        var kitchenImage = document.getElementById("kitchenImage").value;
+        var sittingRoomImage = document.getElementById("sittingRoomImage").value;
+        var livingRoomImage = document.getElementById("livingRoomImage").value;
+        var masterBedroomImage = document.getElementById("masterBedroomImage").value;
+        var propertyTitle = document.getElementById("propertyTitle").value;
+        var numBedrooms = document.getElementById("numBedrooms").value;
+        var propertyLocation = document.getElementById("propertyLocation").value;
+
+        // Perform any additional logic or validation here
+
+        // Display the values (you may want to send them to the server instead)
+        alert("Kitchen Image: " + kitchenImage +
+            "\nSitting Room Image: " + sittingRoomImage +
+            "\nLiving Room Image: " + livingRoomImage +
+            "\nMaster Bedroom Image: " + masterBedroomImage +
+            "\nProperty Title: " + propertyTitle +
+            "\nNumber of Bedrooms: " + numBedrooms +
+            "\nProperty Location: " + propertyLocation);
+    }
+
+    function addAdditionalImage() {
+        var container = document.getElementById("additionalImagesContainer");
+
+        // Generate a new input field
+        var inputField = document.createElement("div");
+        inputField.classList.add("form-group");
+        inputField.innerHTML = '<label for="additionalImage' + (container.children.length + 1) + '">Additional Image ' +
+            (container.children.length + 1) + '</label>' +
+            '<input type="file" class="form-control" id="additionalImage' + (container.children.length + 1) +
+            '" accept="image/*" />';
+
+        // Append the new input field to the container
+        container.appendChild(inputField);
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
 </style>
 
 <body>
