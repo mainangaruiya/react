@@ -61,15 +61,13 @@ def sign_up():
 
     return render_template("sign_up.html", user=current_user)
 
-# Example of protecting the 'buy' and 'sell' routes with @login_required
+
 @auth.route('/buy')
 @login_required
 def buy():
-    # Your buy logic here
     return render_template("buy.html", user=current_user)
 
 @auth.route('/sell')
 @login_required
 def sell():
-    # Your sell logic here
     return render_template("sell.html", user=current_user)
