@@ -8,6 +8,22 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous" />
     <title>{% block title %}base{% endblock %}</title>
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .footer {
+            margin-top: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,9 +33,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-            <a class="nav-item nav-link" href="{% url 'buy' %}">Buy</a>
-            <a class="nav-item nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+            <a class="nav-item nav-link" href="/website/templates/home.html">Home</a>
+            <a class="nav-item nav-link" href="/website/templates/buy.html">Buy</a>
+            <a class="nav-item nav-link" href="/website/templates/sign-up.html">Sign Up</a>
         </div>
     </div>
 </nav>
