@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+    <title>{% block title %}base{% endblock %}</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'buy' %}">Buy</a>
+            <a class="nav-item nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer class="navbar navbar-expand-sm navbar-dark" style="background: darkgrey">
+    <div class="inner-footer">
+        <div class="row">
+            <div class="col-md-3">
+                <h5 class="footer heading">About Us</h5>
+                <hr class="footerHr">
+                <p class="footer-paragraph">Best dealers in town Best dealers in townBest dealers in townBest dealers in town
+                    Best dealers in townBest dealers in town </p>
+            </div>
+            <div class="col-md-3">
+                <h5 class="footer heading">Our products</h5>
+                <hr class="footerHr">
+                <p class="footer-paragraph">we deal in housing from studio apartments to mansionates and bungalows sales for our clients
+                </p>
+            </div>
+            <div class="col-md-3">
+                <h5 class="footer heading">Location</h5>
+                <hr class="footerHr">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.819633227682!2d36.819205113957885
+                !3d-1.2819906359811344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f118a7755ea71%3A0x697a8fe13df
+                19391!2sMoi%20University-Bazaar%20Plaza!5e0!3m2!1sen!2ske!4v1645694908890!5m2!1sen!2ske"
+                        width="100%" height="200" style="border:2px solid black; border-radius: 2px;"
+                        allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col-md-3">
+                <h5 class="footer heading">Contact us</h5>
+                <hr class="footerHr">
+                <p class="footer-paragraph">we help you list your property easily and also buy all over Kenya</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
