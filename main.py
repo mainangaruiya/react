@@ -32,11 +32,11 @@ def sell():
 
         # Perform any additional logic or validation here
 
-        # Render the sell.html template and pass the data to it
-        return render_template('sell.html', kitchen_image=kitchen_image, sitting_room_image=sitting_room_image)
+        # Render the base.html template and pass the data to it
+        return render_template('base.html', kitchen_image=kitchen_image, sitting_room_image=sitting_room_image)
 
-    # If the request method is GET, simply render the sell.html template
-    return render_template('sell.html')
+    # If the request method is GET, simply render the base.html template
+    return render_template('base.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
