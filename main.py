@@ -1,7 +1,21 @@
 from flask import render_template, request
 from website import create_app
+from flask_sqlalchemy import SQLAlchemy
 
 app = create_app()
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database
+db = SQLAlchemy(app)
+
+class Property(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    kitchen_image = db.Column(db.String(100))
+    sitting_room_image = db.Column(db.String(100))
+    living_room_image = db.Column(db.String(100))
+    master_bedroom_image = db.Column(db.String(100))
+    additional_images = db.Column(db.String(255))
+    property_title = db.Column(db.String(100))
+    num_bedrooms = db.Column(db.Integer)
+    property_location = db.Column(db.String(100))
 
 @app.route('/')
 def home():
@@ -9,7 +23,11 @@ def home():
 
 @app.route('/buy')
 def buy():
-    return render_template('buy.html')
+    # Retrieve properties from the database
+    properties = Property.query.all()
+
+    # Render the buy.html template and pass the properties to it
+    return render_template('buy.html', properties=properties)
 
 @app.route('/login')
 def login():
@@ -29,14 +47,51 @@ def sell():
         # Retrieve form data
         kitchen_image = request.form['kitchenImage']
         sitting_room_image = request.form['sittingRoomImage']
+        living_room_image = request.form['livingRoomImage']
+        master_bedroom_image = request.form['masterBedroomImage']
+        
+        # Retrieve additional images dynamically
+        additional_images = []
+        for i in range(1, 4):
+            image_key = f'additionalImage{i}'
+            if image_key in request.form:
+                additional_images.append(request.form[image_key])
+
+        # Retrieve other form data
+        property_title = request.form['propertyTitle']
+        num_bedrooms = request.form['numBedrooms']
+        property_location = request.form['propertyLocation']
 
         # Perform any additional logic or validation here
 
-        # Render the base.html template and pass the data to it
-        return render_template('base.html', kitchen_image=kitchen_image, sitting_room_image=sitting_room_image)
+        # Create a new Property instance
+        new_property = Property(kitchen_image=kitchen_image,
+                               sitting_room_image=sitting_room_image,
+                               living_room_image=living_room_image,
+                               master_bedroom_image=master_bedroom_image,
+                               additional_images=','.join(additional_images),
+                               property_title=property_title,
+                               num_bedrooms=num_bedrooms,
+                               property_location=property_location)
 
-    # If the request method is GET, simply render the base.html template
-    return render_template('base.html')
+        # Add the new property to the database
+        db.session.add(new_property)
+        db.session.commit()
+
+        # Render the sell.html template
+        return render_template('sell.html',
+                               kitchen_image=kitchen_image,
+                               sitting_room_image=sitting_room_image,
+                               living_room_image=living_room_image,
+                               master_bedroom_image=master_bedroom_image,
+                               additional_images=additional_images,
+                               property_title=property_title,
+                               num_bedrooms=num_bedrooms,
+                               property_location=property_location)
+
+    # If the request method is GET, simply render the sell.html template
+    return render_template('sell.html')
 
 if __name__ == '__main__':
+    db.create_all()  # Create the database tables before running the app
     app.run(debug=True)
