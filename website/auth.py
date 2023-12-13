@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -29,6 +29,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('Logged out successfully!', category='success')
     return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -56,18 +57,8 @@ def sign_up():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('Account created!', category='success')
+            flash('Account created! Logged in successfully.', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template("sign_up.html", user=current_user)
+    return render_template("sign-up.html", user=current_user)
 
-
-@auth.route('/buy')
-@login_required
-def buy():
-    return render_template("buy.html", user=current_user)
-
-@auth.route('/sell')
-@login_required
-def sell():
-    return render_template("sell.html", user=current_user)

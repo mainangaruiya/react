@@ -1,23 +1,20 @@
 from flask import render_template, request
 from website import create_app
-from flask_sqlalchemy import SQLAlchemy
-from website.models import Property
+from website.models import db, Property, User  # Import db from models.py
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 app = create_app()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database
-db = SQLAlchemy(app)
 
-class Property(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    kitchen_image = db.Column(db.String(100))
-    sitting_room_image = db.Column(db.String(100))
-    living_room_image = db.Column(db.String(100))
-    master_bedroom_image = db.Column(db.String(100))
-    additional_images = db.Column(db.String(255))
-    property_title = db.Column(db.String(100))
-    num_bedrooms = db.Column(db.Integer)
-    property_location = db.Column(db.String(100))
-    price = db.Column(db.Float)  # Add the price field to your model
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# Your existing routes and configurations...
 
 @app.route('/')
 def home():
@@ -25,27 +22,10 @@ def home():
 
 @app.route('/buy')
 def buy():
-    # Retrieve search parameters from the query string
-    num_bedrooms = request.args.get('numBedrooms', type=int)
-    property_location = request.args.get('propertyLocation', type=str)
-    property_title = request.args.get('propertyTitle', type=str)
-    price = request.args.get('price', type=float)
+    # Retrieve properties from the database
+    properties = Property.query.all()
 
-    # Query properties based on search parameters
-    query = Property.query
-    if num_bedrooms is not None:
-        query = query.filter_by(num_bedrooms=num_bedrooms)
-    if property_location:
-        query = query.filter(Property.property_location.ilike(f'%{property_location}%'))
-    if property_title:
-        query = query.filter(Property.property_title.ilike(f'%{property_title}%'))
-    if price is not None:
-        query = query.filter(Property.price == price)
-
-    # Retrieve filtered properties from the database
-    properties = query.all()
-
-    # Render the buy.html template and pass the filtered properties to it
+    # Render the buy.html template and pass the properties to it
     return render_template('buy.html', properties=properties)
 
 @app.route('/login')
@@ -53,7 +33,9 @@ def login():
     return render_template('login.html')
 
 @app.route('/logout')
+@login_required
 def logout():
+    logout_user()
     return render_template('logout.html')
 
 @app.route('/sign-up')
@@ -61,6 +43,7 @@ def sign_up():
     return render_template('sign-up.html')
 
 @app.route('/sell', methods=['GET', 'POST'])
+@login_required
 def sell():
     if request.method == 'POST':
         # Retrieve form data
@@ -115,5 +98,6 @@ def sell():
     return render_template('sell.html')
 
 if __name__ == '__main__':
-    db.create_all()  # Create the database tables before running the app
+    with app.app_context():
+        db.create_all()  # Create the database tables before running the app
     app.run(debug=True)
