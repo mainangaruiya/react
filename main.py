@@ -1,6 +1,7 @@
 from flask import render_template, request
 from website import create_app
 from flask_sqlalchemy import SQLAlchemy
+from website.models import Property
 
 app = create_app()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database
@@ -16,6 +17,7 @@ class Property(db.Model):
     property_title = db.Column(db.String(100))
     num_bedrooms = db.Column(db.Integer)
     property_location = db.Column(db.String(100))
+    price = db.Column(db.Float)  # Add the price field to your model
 
 @app.route('/')
 def home():
@@ -23,10 +25,27 @@ def home():
 
 @app.route('/buy')
 def buy():
-    # Retrieve properties from the database
-    properties = Property.query.all()
+    # Retrieve search parameters from the query string
+    num_bedrooms = request.args.get('numBedrooms', type=int)
+    property_location = request.args.get('propertyLocation', type=str)
+    property_title = request.args.get('propertyTitle', type=str)
+    price = request.args.get('price', type=float)
 
-    # Render the buy.html template and pass the properties to it
+    # Query properties based on search parameters
+    query = Property.query
+    if num_bedrooms is not None:
+        query = query.filter_by(num_bedrooms=num_bedrooms)
+    if property_location:
+        query = query.filter(Property.property_location.ilike(f'%{property_location}%'))
+    if property_title:
+        query = query.filter(Property.property_title.ilike(f'%{property_title}%'))
+    if price is not None:
+        query = query.filter(Property.price == price)
+
+    # Retrieve filtered properties from the database
+    properties = query.all()
+
+    # Render the buy.html template and pass the filtered properties to it
     return render_template('buy.html', properties=properties)
 
 @app.route('/login')
@@ -61,6 +80,7 @@ def sell():
         property_title = request.form['propertyTitle']
         num_bedrooms = request.form['numBedrooms']
         property_location = request.form['propertyLocation']
+        price = request.form['price']  # Add this line to retrieve the price
 
         # Perform any additional logic or validation here
 
@@ -72,7 +92,8 @@ def sell():
                                additional_images=','.join(additional_images),
                                property_title=property_title,
                                num_bedrooms=num_bedrooms,
-                               property_location=property_location)
+                               property_location=property_location,
+                               price=price)
 
         # Add the new property to the database
         db.session.add(new_property)
@@ -87,7 +108,8 @@ def sell():
                                additional_images=additional_images,
                                property_title=property_title,
                                num_bedrooms=num_bedrooms,
-                               property_location=property_location)
+                               property_location=property_location,
+                               price=price)
 
     # If the request method is GET, simply render the sell.html template
     return render_template('sell.html')
