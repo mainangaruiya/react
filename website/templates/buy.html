@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Properties for Sale{% endblock %}
+
+{% block content %}
+    <!-- Your existing HTML content -->
+
+    <div class="container mt-5">
+        <h2 class="text-center">Properties for Sale</h2>
+        
+        {% for property in properties %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.property_title }}</h5>
+                    <p class="card-text">Number of Bedrooms: {{ property.num_bedrooms }}</p>
+                    <p class="card-text">Location: {{ property.property_location }}</p>
+                    <!-- Display other property details as needed -->
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <img src="{{ property.kitchen_image }}" alt="Kitchen Image" class="img-fluid">
+                        </div>
+                        <div class="col">
+                            <img src="{{ property.sitting_room_image }}" alt="Sitting Room Image" class="img-fluid">
+                        </div>
+                        <!-- Display other images similarly -->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // Your existing JavaScript code
+    </script>
+{% endblock %}
