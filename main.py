@@ -6,7 +6,6 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 app = create_app()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database
 
-
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -99,5 +98,5 @@ def sell():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create the database tables before running the app
+        db.create_all()  # Create the database tables only if they don't exist
     app.run(debug=True)

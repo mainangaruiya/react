@@ -20,7 +20,7 @@
 
         <div class="container mt-5">
             <h2 class="text-center">Property Upload</h2>
-            <form>
+            <form method="POST" enctype="multipart/form-data" >
                 <div class="form-group">
                     <label for="kitchenImage" style="font-weight: bold; color: white;">Kitchen Image</label>
                     <input type="file" class="form-control" id="kitchenImage" accept="image/*" />
@@ -55,12 +55,6 @@
                     <label for="propertyLocation" style="font-weight: bold; color: white;">Property Location</label>
                     <input type="text" class="form-control" id="propertyLocation" />
                 </div>
-                <div class="form-group">
-                    <label for="price" style="font-weight: bold; color: white;">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price">
-                </div>
-
-                
                 <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
             </form>
         </div>
