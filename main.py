@@ -32,6 +32,11 @@ def buy():
 def login():
     return render_template('login.html')
 
+@app.route('/me')
+@login_required
+def me():
+    return render_template('me.html')
+
 @app.route('/logout')
 @login_required
 def logout():
