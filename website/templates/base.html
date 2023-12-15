@@ -33,10 +33,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/website/templates/home.html">Home</a>
-            <a class="nav-item nav-link" href="/website/templates/buy.html">Buy</a>
-            <a class="nav-item nav-link" href="/website/templates/sign-up.html">Sign Up</a>
-        </div>
+    <a class="nav-item nav-link" href="{{ url_for('views.home') }}">Home</a>
+    
+    <a class="nav-item nav-link" href="{{ url_for('views.sell') }}">Sell</a>
+    <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+    <a class="nav-item nav-link" href="{{ url_for('auth.sign_up') }}">Sign Up</a>
+</div>
+
     </div>
 </nav>
 
