@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, Property
 from . import db
 import json
 
@@ -38,8 +38,7 @@ def delete_note():
 @login_required
 def sell():
     # Retrieve form data
-    kitchen_image = request.form['kitchenImage']
-    sitting_room_image = request.form['sittingRoomImage']
+    sitting_room_image = request.form['sittingroomImage']
     living_room_image = request.form['livingRoomImage']
     master_bedroom_image = request.form['masterBedroomImage']
 
@@ -88,3 +87,24 @@ def sell():
                            price=price)
 
 # Add any other routes if needed
+@views.route('/buy')
+def buy():
+    # Retrieve properties from the database
+    properties = Property.query.all()
+
+    # Render the buy.html template and pass the properties to it
+    return render_template('buy.html', properties=properties)
+
+@views.route('/login')
+def login():
+    return render_template('login.html')
+
+@views.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('logout.html')
+
+@views.route('/sign-up')
+def sign_up():
+    return render_template('sign-up.html')
