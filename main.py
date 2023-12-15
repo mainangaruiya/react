@@ -49,7 +49,6 @@ def sell():
         # Retrieve form data
         kitchen_image = request.form['kitchenImage']
         sitting_room_image = request.form['sittingRoomImage']
-        living_room_image = request.form['livingRoomImage']
         master_bedroom_image = request.form['masterBedroomImage']
         
         # Retrieve additional images dynamically
@@ -69,14 +68,13 @@ def sell():
 
         # Create a new Property instance
         new_property = Property(kitchen_image=kitchen_image,
-                               sitting_room_image=sitting_room_image,
-                               living_room_image=living_room_image,
-                               master_bedroom_image=master_bedroom_image,
-                               additional_images=','.join(additional_images),
-                               property_title=property_title,
-                               num_bedrooms=num_bedrooms,
-                               property_location=property_location,
-                               price=price)
+            sitting_room_image=sitting_room_image,
+            master_bedroom_image=master_bedroom_image,
+            additional_images=','.join(additional_images),
+            property_title=property_title,
+            num_bedrooms=num_bedrooms,
+            property_location=property_location,
+            price=price)
 
         # Add the new property to the database
         db.session.add(new_property)
@@ -84,15 +82,14 @@ def sell():
 
         # Render the sell.html template
         return render_template('sell.html',
-                               kitchen_image=kitchen_image,
-                               sitting_room_image=sitting_room_image,
-                               living_room_image=living_room_image,
-                               master_bedroom_image=master_bedroom_image,
-                               additional_images=additional_images,
-                               property_title=property_title,
-                               num_bedrooms=num_bedrooms,
-                               property_location=property_location,
-                               price=price)
+            kitchen_image=kitchen_image,
+            sitting_room_image=sitting_room_image,
+            master_bedroom_image=master_bedroom_image,
+            additional_images=additional_images,
+            property_title=property_title,
+            num_bedrooms=num_bedrooms,
+            property_location=property_location,
+            price=price)
 
     # If the request method is GET, simply render the sell.html template
     return render_template('sell.html')
