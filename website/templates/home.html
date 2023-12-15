@@ -15,30 +15,31 @@
         </ul>
 
         <!-- The slideshow -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ url_for('static', filename='2.jpg') }}" alt="First slide" width="100%" height="650">
-                <div class="carousel-caption">
-                    <h3>all properties</h3>
-                    <hr>
-                    <p class="text-justify"></p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ url_for('static', filename='3c.jpg') }}" alt="Second slide" width="100%" height="650">
-                <div class="carousel-caption">
-                    <h3>Solution experts</h3>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ url_for('static', filename='3.jpg') }}" alt="Amazing deal" width="100%" height="650">
-                <div class="carousel-caption">
-                    <h3>Affordable prices</h3>
-                    <hr>
-                    <p class="text-justify"></p>
-                </div>
-            </div>
+        <div class="carousel-inner" style="height: 100vh;">
+    <div class="carousel-item active">
+        <img src="{{ url_for('static', filename='2.jpg') }}" alt="First slide" width="100%" height="100%">
+        <div class="carousel-caption">
+            <h3>all properties</h3>
+            <hr>
+            <p class="text-justify"></p>
         </div>
+    </div>
+    <div class="carousel-item">
+        <img src="{{ url_for('static', filename='3c.jpg') }}" alt="Second slide" width="100%" height="100%">
+        <div class="carousel-caption">
+            <h3>Solution experts</h3>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <img src="{{ url_for('static', filename='3.jpg') }}" alt="Amazing deal" width="100%" height="100%">
+        <div class="carousel-caption">
+            <h3>Affordable prices</h3>
+            <hr>
+            <p class="text-justify"></p>
+        </div>
+    </div>
+</div>
+
 
         <!-- Left and right controls -->
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
