@@ -3,6 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
+app = Flask(__name__)
+
+# Configure app, login manager, and database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
