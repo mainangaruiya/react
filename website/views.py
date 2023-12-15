@@ -40,7 +40,7 @@ def sell():
         # Retrieve form data
         kitchen_image = request.files['kitchenImage']
         sitting_room_image = request.files['sittingRoomImage']
-        living_room_image = request.files['livingRoomImage']
+        dinning_room_image = request.files['dinningRoomImage']
         master_bedroom_image = request.files['masterBedroomImage']
 
         # Process the file uploads as needed
@@ -52,7 +52,7 @@ def sell():
         new_property = Property(
             kitchen_image=kitchen_image.filename,
             sitting_room_image=sitting_room_image.filename,
-            living_room_image=living_room_image.filename,
+            dinning_room_image=dinning_room_image.filename,
             master_bedroom_image=master_bedroom_image.filename,
             # ... (other property fields)
         )
@@ -61,7 +61,7 @@ def sell():
         # You may want to check for allowed file types, handle file names, etc.
         kitchen_image.save('path/to/your/folder/' + kitchen_image.filename)
         sitting_room_image.save('path/to/your/folder/' + sitting_room_image.filename)
-        living_room_image.save('path/to/your/folder/' + living_room_image.filename)
+        dinning_room_image.save('path/to/your/folder/' + dinning_room_image.filename)
         master_bedroom_image.save('path/to/your/folder/' + master_bedroom_image.filename)
 
         # ... (rest of your existing code)
@@ -91,3 +91,8 @@ def logout():
 @views.route('/sign-up')
 def sign_up():
     return render_template('sign-up.html')
+
+@views.route('/me')
+@login_required
+def me():
+    return render_template('me.html')
