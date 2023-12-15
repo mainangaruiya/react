@@ -33,58 +33,41 @@ def delete_note():
 
     return jsonify({})
 
-# Add the following route for selling
 @views.route('/sell', methods=['GET', 'POST'])
 @login_required
 def sell():
-    # Retrieve form data
-    sitting_room_image = request.form['sittingroomImage']
-    living_room_image = request.form['livingRoomImage']
-    master_bedroom_image = request.form['masterBedroomImage']
+    if request.method == 'POST':
+        # Retrieve form data
+        kitchen_image = request.files['kitchenImage']
+        sitting_room_image = request.files['sittingRoomImage']
+        living_room_image = request.files['livingRoomImage']
+        master_bedroom_image = request.files['masterBedroomImage']
 
-    # Retrieve additional images dynamically
-    additional_images = []
-    for i in range(1, 4):
-        image_key = f'additionalImage{i}'
-        if image_key in request.form:
-            additional_images.append(request.form[image_key])
+        # Process the file uploads as needed
+        # For example, you can save the files to a folder on your server
 
-    # Retrieve other form data
-    property_title = request.form['propertyTitle']
-    num_bedrooms = request.form['numBedrooms']
-    property_location = request.form['propertyLocation']
-    price = request.form['price']
+        # Rest of your existing code for handling other form data...
 
-    # Perform any additional logic or validation here
+        # Create a new Property instance
+        new_property = Property(
+            kitchen_image=kitchen_image.filename,
+            sitting_room_image=sitting_room_image.filename,
+            living_room_image=living_room_image.filename,
+            master_bedroom_image=master_bedroom_image.filename,
+            # ... (other property fields)
+        )
 
-    # Create a new Property instance
-    new_property = Property(
-        kitchen_image=kitchen_image,
-        sitting_room_image=sitting_room_image,
-        living_room_image=living_room_image,
-        master_bedroom_image=master_bedroom_image,
-        additional_images=','.join(additional_images),
-        property_title=property_title,
-        num_bedrooms=num_bedrooms,
-        property_location=property_location,
-        price=price
-    )
+        # Save the files to a folder on your server
+        # You may want to check for allowed file types, handle file names, etc.
+        kitchen_image.save('path/to/your/folder/' + kitchen_image.filename)
+        sitting_room_image.save('path/to/your/folder/' + sitting_room_image.filename)
+        living_room_image.save('path/to/your/folder/' + living_room_image.filename)
+        master_bedroom_image.save('path/to/your/folder/' + master_bedroom_image.filename)
 
-    # Add the new property to the database
-    db.session.add(new_property)
-    db.session.commit()
+        # ... (rest of your existing code)
 
-    # Render the sell.html template
-    return render_template('sell.html',
-                           kitchen_image=kitchen_image,
-                           sitting_room_image=sitting_room_image,
-                           living_room_image=living_room_image,
-                           master_bedroom_image=master_bedroom_image,
-                           additional_images=additional_images,
-                           property_title=property_title,
-                           num_bedrooms=num_bedrooms,
-                           property_location=property_location,
-                           price=price)
+    # Render the sell.html template for both GET and POST requests
+    return render_template('sell.html')
 
 # Add any other routes if needed
 @views.route('/buy')
