@@ -17,8 +17,8 @@
                     <input type="file" class="form-control" id="sittingRoomImage" accept="image/*" />
                 </div>
                 <div class="form-group">
-                    <label for="livingRoomImage" style="font-weight: bold; color: white;">Living Room Image</label>
-                    <input type="file" class="form-control" id="livingRoomImage" accept="image/*" />
+                    <label for="dinningRoomImage" style="font-weight: bold; color: white;">Dinning Room Image</label>
+                    <input type="file" class="form-control" id="dinningRoomImage" accept="image/*" />
                 </div>
                 <div class="form-group">
                     <label for="masterBedroomImage" style="font-weight: bold; color: white;">Master Bedroom Image</label>
@@ -51,7 +51,7 @@
             function submitForm() {
                 var kitchenImage = document.getElementById("kitchenImage").value;
                 var sittingRoomImage = document.getElementById("sittingRoomImage").value;
-                var livingRoomImage = document.getElementById("livingRoomImage").value;
+                var dinningRoomImage = document.getElementById("dinningRoomImage").value;
                 var masterBedroomImage = document.getElementById("masterBedroomImage").value;
                 var propertyTitle = document.getElementById("propertyTitle").value;
                 var numBedrooms = document.getElementById("numBedrooms").value;
@@ -62,7 +62,7 @@
                 // Display the values (you may want to send them to the server instead)
                 alert("Kitchen Image: " + kitchenImage +
                     "\nSitting Room Image: " + sittingRoomImage +
-                    "\nLiving Room Image: " + livingRoomImage +
+                    "\ndinning Room Image: " + dinningRoomImage +
                     "\nMaster Bedroom Image: " + masterBedroomImage +
                     "\nProperty Title: " + propertyTitle +
                     "\nNumber of Bedrooms: " + numBedrooms +
