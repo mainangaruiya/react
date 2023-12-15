@@ -2,9 +2,10 @@ from flask import render_template, request
 from website import create_app
 from website.models import db, Property, User  # Import db from models.py
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from website.views import views
 
 app = create_app()
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # SQLite database
+app.register_blueprint(views, name='views_blueprint')
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
