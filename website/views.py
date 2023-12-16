@@ -74,8 +74,6 @@ def sell():
 def buy():
     # Retrieve properties from the database
     properties = Property.query.all()
-
-    # Render the buy.html template and pass the properties to it
     return render_template('buy.html', properties=properties)
 
 @views.route('/login')
@@ -92,7 +90,3 @@ def logout():
 def sign_up():
     return render_template('sign-up.html')
 
-@views.route('/me')
-@login_required
-def me():
-    return render_template('me.html')

@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    
     kitchen_image = db.Column(db.String(255))
     sitting_room_image = db.Column(db.String(255))
     living_room_image = db.Column(db.String(255))
@@ -27,6 +28,12 @@ class Property(db.Model):
     num_bedrooms = db.Column(db.Integer)
     property_location = db.Column(db.String(255))
     price = db.Column(db.Float)  # Add a column for price
+    
+    # Add a foreign key to reference the User model
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    # Establish the relationship with the User model
+    user = db.relationship('User', backref=db.backref('properties', lazy=True))
 
     def __repr__(self):
         return f"Property('{self.property_title}', '{self.property_location}', '{self.price}')"
