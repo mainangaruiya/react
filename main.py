@@ -28,7 +28,7 @@ def account():
 
     # Retrieve properties posted by the current user
     user_properties = Property.query.filter_by(user_id=current_user.id).all()
-
+ 
     return render_template('account.html', user=user)
 
 @app.route('/buy')
