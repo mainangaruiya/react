@@ -20,6 +20,25 @@ def load_user(user_id):
 def home():
     return render_template('home.html')
 
+@app.route('/account')
+@login_required
+def account():
+    # Retrieve user information
+    user_email = current_user.email
+
+    # Retrieve properties posted by the current user
+    user_properties = Property.query.filter_by(user_id=current_user.id).all()
+
+    return render_template('account.html', user=user)
+
+@app.route('/buy')
+def buy():
+    # Retrieve properties from the database
+    properties = Property.query.all()
+
+    # Render the buy.html template and pass the properties to it
+    return render_template('buy.html', properties=properties)
+
 @app.route('/login')
 def login():
     return render_template('login.html')
