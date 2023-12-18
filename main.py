@@ -23,13 +23,19 @@ def home():
 @app.route('/account')
 @login_required
 def account():
-    # Retrieve user information
-    user_email = current_user.email
+    # Make sure the user is logged in before accessing current_user
+    if current_user.is_authenticated:
+        # Retrieve user information
+        user_email = current_user.email
 
-    # Retrieve properties posted by the current user
-    user_properties = Property.query.filter_by(user_id=current_user.id).all()
- 
-    return render_template('account.html', user=user)
+        # Retrieve properties posted by the current user
+        user_properties = Property.query.filter_by(user_id=current_user.id).all()
+
+        return render_template('account.html', user_email=user_email, user_properties=user_properties)
+    else:
+        # Render the login page or any other appropriate page
+        return render_template('login.html')  # Adjust as needed
+
 
 @app.route('/buy')
 def buy():
