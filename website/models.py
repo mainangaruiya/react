@@ -14,25 +14,22 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
+    last_name = db.Column(db.String(150))
+    phone_number = db.Column(db.String(20))
     notes = db.relationship('Note')
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    
     kitchen_image = db.Column(db.String(255))
     sitting_room_image = db.Column(db.String(255))
     living_room_image = db.Column(db.String(255))
     master_bedroom_image = db.Column(db.String(255))
-    additional_images = db.Column(db.String(1000))  # Modify the length as needed
+    additional_images = db.Column(db.String(1000))
     property_title = db.Column(db.String(255))
     num_bedrooms = db.Column(db.Integer)
     property_location = db.Column(db.String(255))
-    price = db.Column(db.Float)  # Add a column for price
-    
-    # Add a foreign key to reference the User model
+    price = db.Column(db.Float)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    
-    # Establish the relationship with the User model
     user = db.relationship('User', backref=db.backref('properties', lazy=True))
 
     def __repr__(self):
