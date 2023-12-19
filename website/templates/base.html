@@ -10,20 +10,24 @@
     <title>{% block title %}base{% endblock %}</title>
 
     <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
 
-        .container {
-            flex: 1;
-        }
+    .container {
+        flex: 1;
+    }
 
-        .footer {
-            margin-top: auto;
-        }
+    .footer {
+        background: darkgrey;
+        padding: 20px;
+        margin-top: auto;
+    }
     </style>
+
 </head>
 
 <body>
@@ -44,9 +48,13 @@
     </div>
 </nav>
 
-{% block content %}{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <!-- Your content goes here -->
+    </div>
+{% endblock %}
 
-<footer class="navbar navbar-expand-sm navbar-dark" style="background: darkgrey">
+<footer class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background: darkgrey">
     <div class="inner-footer">
         <div class="row">
             <div class="col-md-3">

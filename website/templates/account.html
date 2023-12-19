@@ -4,15 +4,8 @@
 {% block title %}Account{% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ user_name }}!</h1>
-    <p>Email: {{ user_email }}</p>
-
+    <h1>Welcome, {{ email }}!</h1>
     <h2>Your Properties:</h2>
-    <ul>
-        {% for property in user_properties %}
-            <li>{{ property.property_title }} - {{ property.property_location }} - Price: ${{ property.price }}</li>
-        {% endfor %}
-    </ul>
-
+    
     <a href="{{ url_for('logout') }}">Logout</a>
 {% endblock %}

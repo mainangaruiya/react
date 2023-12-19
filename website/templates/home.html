@@ -7,6 +7,7 @@
         <!-- Your content goes here -->
     </div>
 
+    <!-- Bootstrap Carousel -->
     <div id="demo" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ul class="carousel-indicators">
@@ -16,30 +17,29 @@
 
         <!-- The slideshow -->
         <div class="carousel-inner" style="height: 100vh;">
-    <div class="carousel-item active">
-        <img src="{{ url_for('static', filename='2.jpg') }}" alt="First slide" width="100%" height="100%">
-        <div class="carousel-caption">
-            <h3>all properties</h3>
-            <hr>
-            <p class="text-justify"></p>
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='1.jpg') }}" alt="First slide" width="100%" height="100%">
+                <div class="carousel-caption">
+                    <h3>all properties</h3>
+                    <hr>
+                    <p class="text-justify"></p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='3c.jpg') }}" alt="Second slide" width="100%" height="100%">
+                <div class="carousel-caption">
+                    <h3>Solution experts</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='3.jpg') }}" alt="Amazing deal" width="100%" height="100%">
+                <div class="carousel-caption">
+                    <h3>Affordable prices</h3>
+                    <hr>
+                    <p class="text-justify"></p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="carousel-item">
-        <img src="{{ url_for('static', filename='3c.jpg') }}" alt="Second slide" width="100%" height="100%">
-        <div class="carousel-caption">
-            <h3>Solution experts</h3>
-        </div>
-    </div>
-    <div class="carousel-item">
-        <img src="{{ url_for('static', filename='3.jpg') }}" alt="Amazing deal" width="100%" height="100%">
-        <div class="carousel-caption">
-            <h3>Affordable prices</h3>
-            <hr>
-            <p class="text-justify"></p>
-        </div>
-    </div>
-</div>
-
 
         <!-- Left and right controls -->
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -50,35 +50,7 @@
         </a>
     </div>
 
-    <div class="container mt-5 bg-secondary">
-        <h2 class="text-center">Featured Properties</h2>
-
-        <!-- Four Images -->
-        <div class="row mt-4">
-            <!-- Image 1 -->
-            <div class="col-md-3">
-                <img src="{{ url_for('static', filename='kitchen.jpg') }}" alt="Kitchen" class="img-fluid mb-3" />
-            </div>
-            <!-- Image 2 -->
-            <div class="col-md-3">
-                <img src="{{ url_for('static', filename='living.jpg') }}" alt="Living Room" class="img-fluid mb-3" />
-            </div>
-            <!-- Image 3 -->
-            <div class="col-md-3">
-                <img src="{{ url_for('static', filename='bedroom.jpeg') }}" alt="Bedroom" class="img-fluid mb-3" />
-            </div>
-            <!-- Image 4 -->
-            <div class="col-md-3">
-                <img src="{{ url_for('static', filename='bath.jpeg') }}" alt="Bathroom" class="img-fluid mb-3" />
-            </div>
-        </div>
-
-        <!-- See More Button -->
-        <div class="text-center mt-4">
-            <a href="{{ url_for('auth.sign_up') }}" class="btn btn-primary">See More</a>
-        </div>
-    </div>
-
+    
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
             integrity="sha384-o3p6V/nE9CSB9U9O2pCDg6B0PDIEN2ZPpZSZw1yObmdAQP8AU90ndlnZt7UsoD8r"

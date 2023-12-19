@@ -54,7 +54,7 @@ def sell():
             sitting_room_image=sitting_room_image.filename,
             dinning_room_image=dinning_room_image.filename,
             master_bedroom_image=master_bedroom_image.filename,
-            price = Property.price
+            # ... (other property fields)
         )
 
         # Save the files to a folder on your server
@@ -74,13 +74,13 @@ def sell():
 def buy():
     # Retrieve properties from the database
     properties = Property.query.all()
+
+    # Render the buy.html template and pass the properties to it
     return render_template('buy.html', properties=properties)
 
 @views.route('/login')
 def login():
     return render_template('login.html')
-
-
 
 @views.route('/logout')
 @login_required
@@ -91,8 +91,4 @@ def logout():
 @views.route('/sign-up')
 def sign_up():
     return render_template('sign-up.html')
-
-@views.route('/account')
-def account():
-    return render_template('account.html')
 
