@@ -24,7 +24,6 @@ def home():
 @login_required
 def account():
     # Retrieve user information
-    user_name = current_user.username
     user_email = current_user.email
 
     # Retrieve properties posted by the current user
@@ -33,6 +32,7 @@ def account():
     return render_template('account.html', user_name=user_name, user_email=user_email, user_properties=user_properties)
 
 @app.route('/buy')
+@login_required
 def buy():
     # Retrieve properties from the database
     properties = Property.query.all()

@@ -71,6 +71,7 @@ def sell():
 
 # Add any other routes if needed
 @views.route('/buy')
+@login_required
 def buy():
     # Retrieve properties from the database
     properties = Property.query.all()
@@ -91,4 +92,13 @@ def logout():
 @views.route('/sign-up')
 def sign_up():
     return render_template('sign-up.html')
+@views.route('/account')
+@login_required
+def account():
+    # Use the `current_user` provided by Flask-Login
+    user_email = current_user.email if current_user.is_authenticated else None
 
+    # Retrieve properties posted by the current user
+    user_properties = Property.query.filter_by(user_id=current_user.id).all()
+
+    return render_template('account.html', user_email=user_email, user_properties=user_properties)
