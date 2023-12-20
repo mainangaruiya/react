@@ -10,22 +10,21 @@
     <title>{% block title %}base{% endblock %}</title>
 
     <style>
-    body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-    }
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
 
-    .container {
-        flex: 1;
-    }
+        .container {
+            flex: 1;
+        }
 
-    .footer {
-        background: darkgrey;
-        padding: 20px;
-        margin-top: auto;
-    }
+        .footer {
+            background: darkgrey;
+            padding: 20px;
+            margin-top: auto;
+        }
     </style>
 
 </head>
@@ -38,32 +37,29 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-    <a class="nav-item nav-link" href="{{ url_for('views.home') }}">Home</a>
-    <a class="nav-item nav-link" href="{{ url_for('views.buy') }}">buy</a>
-    <a class="nav-item nav-link" href="{{ url_for('views.sell') }}">Sell</a>
-    <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
-    <a class="nav-item nav-link" href="{{ url_for('auth.sign_up') }}">Sign Up</a>
-    <a class="nav-item nav-link" href="{{ url_for('account') }}">account</a>
-    </div>
-
+            <a class="nav-item nav-link" href="{{ url_for('views.home') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('views.buy') }}">buy</a>
+            <a class="nav-item nav-link" href="{{ url_for('views.sell') }}">Sell</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+            <a class="nav-item nav-link" href="{{ url_for('auth.sign_up') }}">Sign Up</a>
+            <a class="nav-item nav-link" href="{{ url_for('account') }}">account</a>
+        </div>
     </div>
 </nav>
+
 {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <div class="container">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message[1] }}">
-                        {{ message[0] }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-{% block content %}
-    <div class="container mt-5">
-        <!-- Your content goes here -->
-    </div>
-{% endblock %}
+    {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message[1] }}">
+                    {{ message[0] }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% block content %}{% endblock %}
 
 <footer class="navbar navbar-expand-sm navbar-dark " style="background: darkgrey">
     <div class="inner-footer">
