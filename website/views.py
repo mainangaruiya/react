@@ -8,17 +8,6 @@ views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == 'POST':
-        note = request.form.get('note')
-
-        if len(note) < 1:
-            flash('Note is too short!', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
-
     return render_template("home.html", user=current_user)
 
 @views.route('/delete-note', methods=['POST'])
@@ -37,51 +26,70 @@ def delete_note():
 @login_required
 def sell():
     if request.method == 'POST':
-        # Retrieve form data
-        kitchen_image = request.files['kitchenImage']
-        sitting_room_image = request.files['sittingRoomImage']
-        dinning_room_image = request.files['dinningRoomImage']
-        master_bedroom_image = request.files['masterBedroomImage']
+        try:
+            # Retrieve form data
+            kitchen_image = request.form['kitchenImage']
+            sitting_room_image = request.form['sittingRoomImage']
+            master_bedroom_image = request.form['masterBedroomImage']
+            
+            # Retrieve additional images dynamically
+            additional_images = []
+            for i in range(1, 4):
+                image_key = f'additionalImage{i}'
+                if image_key in request.form:
+                    additional_images.append(request.form[image_key])
 
-        # Process the file uploads as needed
-        # For example, you can save the files to a folder on your server
+            # Retrieve other form data
+            property_title = request.form['propertyTitle']
+            num_bedrooms = request.form['numBedrooms']
+            property_location = request.form['propertyLocation']
+            price = request.form['price']  # Add this line to retrieve the price
 
-        # Rest of your existing code for handling other form data...
+            # Perform any additional logic or validation here
 
-        # Create a new Property instance
-        new_property = Property(
-            kitchen_image=kitchen_image.filename,
-            sitting_room_image=sitting_room_image.filename,
-            dinning_room_image=dinning_room_image.filename,
-            master_bedroom_image=master_bedroom_image.filename,
-            # ... (other property fields)
-        )
+            # Create a new Property instance
+            new_property = Property(
+                kitchen_image=kitchen_image,
+                sitting_room_image=sitting_room_image,
+                master_bedroom_image=master_bedroom_image,
+                additional_images=','.join(additional_images),
+                property_title=property_title,
+                num_bedrooms=num_bedrooms,
+                property_location=property_location,
+                price=price,
+                user_id=current_user.id
+            )
 
-        # Save the files to a folder on your server
-        # You may want to check for allowed file types, handle file names, etc.
-        kitchen_image.save('path/to/your/folder/' + kitchen_image.filename)
-        sitting_room_image.save('path/to/your/folder/' + sitting_room_image.filename)
-        dinning_room_image.save('path/to/your/folder/' + dinning_room_image.filename)
-        master_bedroom_image.save('path/to/your/folder/' + master_bedroom_image.filename)
+            # Add the new property to the database
+            db.session.add(new_property)
+            db.session.commit()
 
-        # ... (rest of your existing code)
+            # Flash success message
+            flash('Property added successfully!', 'success')
 
-    # Render the sell.html template for both GET and POST requests
+            # Redirect to another page or render template
+            return redirect(url_for('views.sell'))
+
+        except Exception as e:
+            # Flash error message
+            flash(f'Error adding property: {str(e)}', 'error')
+
+    # If the request method is GET, simply render the sell.html template
     return render_template('sell.html')
 
-# Add any other routes if needed
-@views.route('/buy')
+@views.route('/buy', methods=['GET'])
 @login_required
 def buy():
-    # Retrieve properties from the database
-    properties = Property.query.all()
+    all_properties = Property.query.all()
 
     # Render the buy.html template and pass the properties to it
-    return render_template('buy.html', properties=properties)
+    return render_template('buy.html', all_properties=all_properties)
 
-@views.route('/login')
+@views.route('/login', methods=['POST'])
 def login():
-    return render_template('login.html')
+    login_user(user)
+    return redirect(url_for('views.buy'))
+
 
 @views.route('/logout')
 @login_required
@@ -92,12 +100,13 @@ def logout():
 @views.route('/sign-up')
 def sign_up():
     return render_template('sign-up.html')
+
+
 @views.route('/account')
 @login_required
 def account():
     # Use the `current_user` provided by Flask-Login
     user_email = current_user.email if current_user.is_authenticated else None
-
     # Retrieve properties posted by the current user
     user_properties = Property.query.filter_by(user_id=current_user.id).all()
 

@@ -4,8 +4,8 @@
 {% block title %}Account{% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ email }}!</h1>
+    <h1>Welcome, {{ user_email }}</h1>
     <h2>Your Properties:</h2>
     
-    <a href="{{ url_for('logout') }}">Logout</a>
+    
 {% endblock %}

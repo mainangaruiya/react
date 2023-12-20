@@ -31,6 +31,7 @@
 </head>
 
 <body>
+    
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
@@ -47,14 +48,24 @@
 
     </div>
 </nav>
-
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message[1] }}">
+                        {{ message[0] }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 {% block content %}
     <div class="container mt-5">
         <!-- Your content goes here -->
     </div>
 {% endblock %}
 
-<footer class="navbar navbar-expand-sm navbar-dark fixed-bottom" style="background: darkgrey">
+<footer class="navbar navbar-expand-sm navbar-dark " style="background: darkgrey">
     <div class="inner-footer">
         <div class="row">
             <div class="col-md-3">

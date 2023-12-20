@@ -48,11 +48,17 @@ def sign_up():
             flash('Password must be at least 6 characters.', category='error')
         else:
             new_user = User(email=email, phone_number=phone_number, first_name=first_name, password=generate_password_hash(password1, method='pbkdf2:sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True)
-            flash('Account created! Please log in.', category='success')
-            return redirect(url_for('auth.login'))
+            try:
+                db.session.add(new_user)
+                db.session.commit()  # Commit changes to the database
+
+                login_user(new_user, remember=True)
+                flash('Account created! Please log in.', category='success')
+                return redirect(url_for('auth.login'))
+            except Exception as e:
+                db.session.rollback()  # Rollback changes in case of an exception
+                flash('Error creating account. Please try again.', category='error')
+                print(e)
 
     return render_template("sign-up.html", user=current_user)
 

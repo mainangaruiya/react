@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Properties for Sale{% endblock %}
+{% block title %}marketplace{% endblock %}
 
 {% block content %}
     <!-- Your existing HTML content -->
@@ -19,38 +19,47 @@
                     <input type="text" class="form-control" id="propertyLocation" name="propertyLocation" placeholder="Enter Location">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="propertyTitle">Property Title</label>
-                    <input type="text" class="form-control" id="propertyTitle" name="propertyTitle" placeholder="Enter Title">
-                </div>
-                <div class="form-group col-md-3">
                     <label for="price">Price</label>
                     <input type="number" class="form-control" id="price" name="price" placeholder="Enter Price">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
-        
-        {% for property in properties %}
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ property.property_title }}</h5>
-                    <p class="card-text">Number of Bedrooms: {{ property.num_bedrooms }}</p>
-                    <p class="card-text">Location: {{ property.property_location }}</p>
-                    <!-- Display other property details as needed -->
-
-                    <div class="row mt-3">
-                        <div class="col">
-                            <img src="{{ property.kitchen_image }}" alt="Kitchen Image" class="img-fluid">
-                        </div>
-                        <div class="col">
-                            <img src="{{ property.sitting_room_image }}" alt="Sitting Room Image" class="img-fluid">
-                        </div>
-                        <!-- Display other images similarly -->
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
     </div>
+    {% for property in all_properties %}
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ property.property_title }}</h5>
+            <p class="card-text">Number of Bedrooms: {{ property.num_bedrooms }}</p>
+            <p class="card-text">Location: {{ property.property_location }}</p>
+            <p class="card-text">price: {{ property.property_price }}</p>
+
+            <!-- Display other property details as needed -->
+
+            <div class="row mt-3">
+                <div class="col">
+                    <img src="{{ property.kitchen_image }}" alt="Kitchen Image" class="img-fluid">
+                </div>
+                <div class="col">
+                    <img src="{{ property.sitting_room_image }}" alt="Sitting Room Image" class="img-fluid">
+                </div>
+                <div class="col">
+                    <img src="{{ property.dinning_room_image }}" alt="dinning Room Image" class="img-fluid">
+                </div>
+                <div class="col">
+                    <img src="{{ property.master_bedroom_image }}" alt="masterBedroomImage" class="img-fluid">
+                </div>
+
+                <!-- Display other images similarly, e.g., additional images -->
+                {% for additional_image in property.additional_images.split(',') %}
+                    <div class="col">
+                        <img src="{{ additional_image }}" alt="Additional Image" class="img-fluid">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 
     <script>
         // Your existing JavaScript code
