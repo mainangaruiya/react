@@ -7,7 +7,8 @@
         <div class="container mt-5 bg-secondary">
             <h2 class="text-center">Property Upload</h2>
 
-            <form method="POST" action="/sell" enctype="multipart/form-data" id="sellForm">
+            <form method="POST" action="{{ url_for('views.sell') }}" enctype="multipart/form-data" id="sellForm">
+
                 <div class="form-group">
                     <label for="propertyTitle" style="font-weight: bold; color: white;">Property Title</label>
                     <input type="text" class="form-control" id="propertyTitle" name="propertyTitle" />
@@ -25,7 +26,7 @@
                     <input type="text" class="form-control" id="price" name="price" />
                 </div>
                 <div class="form-group">
-                    <label for="propertyVideo" style="font-weight: bold; color: white;">Property Video (max 5 minutes)</label>
+                    <label for="propertyVideo" style="font-weight: bold; color: white;">Property Video (max 10 minutes)</label>
                     <input type="file" class="form-control" id="propertyVideo" name="propertyVideo" accept="video/*" />
                 </div>
                 <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>

@@ -1,5 +1,5 @@
 # models.py
-from . import db
+from website import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
@@ -20,15 +20,12 @@ class User(db.Model, UserMixin):
 
 class Property(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    kitchen_image = db.Column(db.String(255))
-    sitting_room_image = db.Column(db.String(255))
-    living_room_image = db.Column(db.String(255))
-    master_bedroom_image = db.Column(db.String(255))
-    additional_images = db.Column(db.String(1000))
     property_title = db.Column(db.String(255))
     num_bedrooms = db.Column(db.Integer)
     property_location = db.Column(db.String(255))
     price = db.Column(db.Float)
+    property_video = db.Column(db.String(255))
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('properties', lazy=True))
 

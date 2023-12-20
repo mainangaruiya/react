@@ -6,6 +6,8 @@ from website.models import db, Property, User
 import os
 
 app = create_app()
+with app.app_context():
+    db.create_all()
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -45,14 +47,13 @@ def sign_up():
     return render_template('sign-up.html')
 
 @app.route('/account')
-@login_required
+
 def account():
     user_email = current_user.email
     user_properties = Property.query.filter_by(user_id=current_user.id).all()
     return render_template('account.html', user_email=user_email, user_properties=user_properties)
 
 @app.route('/sell', methods=['GET', 'POST'])
-@login_required
 def sell():
     if request.method == 'POST':
         try:
@@ -62,22 +63,31 @@ def sell():
             price = request.form['price']
 
             property_video_file = request.files['propertyVideo']
-            property_video = save_and_get_filename(property_video_file)
 
-            new_property = Property(
-                property_title=property_title,
-                num_bedrooms=num_bedrooms,
-                property_location=property_location,
-                price=price,
-                property_video=property_video,
-                user_id=current_user.id
-            )
+            if property_video_file and allowed_file(property_video_file.filename):
+                # Save the file locally
+                filename = secure_filename(property_video_file.filename)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                property_video_file.save(file_path)
 
-            db.session.add(new_property)
-            db.session.commit()
+                # Add the property to the database with the relative path
+                new_property = Property(
+                    property_title=property_title,
+                    num_bedrooms=num_bedrooms,
+                    property_location=property_location,
+                    price=price,
+                    property_video=f'static/uploads/{filename}',  # Store the relative path
+                    user_id=current_user.id
+                )
 
-            flash('Property added successfully!', 'success')
-            return redirect(url_for('views.sell'))
+                db.session.add(new_property)
+                db.session.commit()
+
+                flash('Property added successfully!', 'success')
+                return redirect(url_for('views.sell'))
+
+            else:
+                flash('Invalid file format. Allowed formats: mp4, avi, mov, mkv', 'error')
 
         except Exception as e:
             flash(f'Error adding property: {str(e)}', 'error')

@@ -10,7 +10,7 @@ def home():
     return render_template("home.html", user=current_user)
 
 @views.route('/sell', methods=['GET', 'POST'])
-@login_required
+
 def sell():
     if request.method == 'POST':
         try:
@@ -43,7 +43,7 @@ def sell():
     return render_template('sell.html')
 
 @views.route('/buy', methods=['GET'])
-@login_required
+
 def buy():
     all_properties = Property.query.all()
     return render_template('buy.html', all_properties=all_properties)
