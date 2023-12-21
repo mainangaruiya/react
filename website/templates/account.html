@@ -6,6 +6,25 @@
 {% block content %}
     <h1>Welcome, {{ user_email }}</h1>
     <h2>Your Properties:</h2>
+
+    
+    <section class="container mt-5 bg-secondary" style="border: 1px solid #ccc; padding: right; margin-top: 20px;">
+    <h2 style="text-align: center;">Studio Apartment Kiambu</h2>
+
+    <div class="row mt-3">
+        <div class="col-md-6" style="border-right: 1px solid #ccc; padding-right: 15px;">
+            <h4>Number of Bedrooms:</h4>
+            <p>1</p>
+
+            <h4>Location:</h4>
+            <p>Kiambu County</p>
+        </div>
+            <h4>Property Tour Video:</h4>
+            <video width="100%" height="auto" controls style="border: 1px solid #ccc;">
+                <!-- Use url_for to generate the correct video URL -->
+                <source src="{{ url_for('static', filename='uploads/sample1.webm') }}" type="video/webm">
+            </video>
+    </section>
     
     
 {% endblock %}
