@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+from .views import views
 
 
 db = SQLAlchemy()
@@ -23,6 +24,7 @@ def create_app():
 
     app.register_blueprint(views, url_prefix='')
     app.register_blueprint(auth, url_prefix='')
+    app.register_blueprint(views)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

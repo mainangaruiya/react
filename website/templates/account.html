@@ -1,30 +1,31 @@
-<!-- account.html -->
 {% extends 'base.html' %}
 
-{% block title %}Account{% endblock %}
+{% block title %}marketplace{% endblock %}
 
 {% block content %}
-    <h1>Welcome, {{ user_email }}</h1>
-    <h2>Your Properties:</h2>
+    <div class="container mt-5">
+        <h2 class="text-center">Your Uploaded Properties</h2>
+    </div>
 
-    
-    <section class="container mt-5 bg-secondary" style="border: 1px solid #ccc; padding: right; margin-top: 20px;">
-    <h2 style="text-align: center;">Studio Apartment Kiambu</h2>
+    <div class="container mt-3">
+        <div class="card-deck">
+            {% for property in user_properties %}
+                <div class="card mb-4">
+                    <video class="card-img-top" width="100%" height="auto" controls>
+                        <source src="{{ url_for('static', filename=property.property_video) }}" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
 
-    <div class="row mt-3">
-        <div class="col-md-6" style="border-right: 1px solid #ccc; padding-right: 15px;">
-            <h4>Number of Bedrooms:</h4>
-            <p>1</p>
-
-            <h4>Location:</h4>
-            <p>Kiambu County</p>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.property_title }}</h5>
+                        <p class="card-text">
+                            <strong>Bedrooms:</strong> {{ property.num_bedrooms }}<br>
+                            <strong>Location:</strong> {{ property.property_location }}<br>
+                            <strong>Description:</strong> {{ property.description }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-            <h4>Property Tour Video:</h4>
-            <video width="100%" height="auto" controls style="border: 1px solid #ccc;">
-                <!-- Use url_for to generate the correct video URL -->
-                <source src="{{ url_for('static', filename='uploads/sample1.webm') }}" type="video/webm">
-            </video>
-    </section>
-    
-    
+    </div>
 {% endblock %}

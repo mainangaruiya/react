@@ -1,7 +1,10 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
 from flask_login import login_required, current_user
+import os
 from .models import Property
 from . import db
+
+
 
 views = Blueprint('views', __name__)
 
@@ -10,7 +13,7 @@ def home():
     return render_template("home.html", user=current_user)
 
 @views.route('/sell', methods=['GET', 'POST'])
-
+@login_required
 def sell():
     if request.method == 'POST':
         try:
@@ -22,17 +25,14 @@ def sell():
             property_video_file = request.files['propertyVideo']
             property_video = save_and_get_filename(property_video_file)
 
-            new_property = Property(
-                property_title=property_title,
-                num_bedrooms=num_bedrooms,
-                property_location=property_location,
-                price=price,
-                property_video=property_video,
-                user_id=current_user.id
-            )
-
-            db.session.add(new_property)
-            db.session.commit()
+            # Store property information in a text file within the properties folder
+            with open(f'{property_video}.txt', 'w') as f:
+                f.write(f"Title: {property_title}\n")
+                f.write(f"Bedrooms: {num_bedrooms}\n")
+                f.write(f"Location: {property_location}\n")
+                f.write(f"Price: {price}\n")
+                f.write(f"Video: {property_video}\n")
+                f.write(f"User ID: {current_user.id}\n")
 
             flash('Property added successfully!', 'success')
             return redirect(url_for('views.sell'))
@@ -43,15 +43,16 @@ def sell():
     return render_template('sell.html')
 
 @views.route('/buy', methods=['GET'])
-
 def buy():
-    all_properties = Property.query.all()
+    all_properties = [p for p in os.listdir(current_app.config['UPLOAD_FOLDER']) if p.endswith('.txt')]
     return render_template('buy.html', all_properties=all_properties)
 
 @views.route('/login', methods=['POST'])
 def login():
+    user = get_user_somehow()
     login_user(user)
-    return redirect(url_for('views.buy'))
+    flash('Login successful!', 'success')
+    return redirect(url_for('account.html'))
 
 @views.route('/logout')
 @login_required
