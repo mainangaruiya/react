@@ -6,10 +6,8 @@ from website.models import User, Property
 from website.views import views
 import os
 
-
-app.register_blueprint(views)
-
 app = create_app()
+
 UPLOAD_FOLDER = os.path.join(app.root_path, 'properties')
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov', 'mkv'}
 
@@ -32,6 +30,7 @@ def save_and_get_filename(file):
         file.save(file_path)
         return filename, file_path
     return None, None
+
 
 @app.route('/')
 def home():
@@ -83,7 +82,7 @@ def sell():
                     num_bedrooms=num_bedrooms,
                     property_location=property_location,
                     price=price,
-                    property_video=file_path,
+                    property_video=filename,  # Store filename in the database, not the full path
                     user_id=current_user.id
                 )
 
@@ -101,8 +100,9 @@ def sell():
 
     return render_template('sell.html')
 
+
 if __name__ == '__main__':
     with app.app_context():
-         from website.models import db
+        from website.models import db
         db.create_all()
     app.run(debug=True)

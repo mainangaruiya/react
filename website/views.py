@@ -52,7 +52,7 @@ def login():
     user = get_user_somehow()
     login_user(user)
     flash('Login successful!', 'success')
-    return redirect(url_for('account.html'))
+    return redirect(url_for('views.account'))
 
 @views.route('/logout')
 @login_required
